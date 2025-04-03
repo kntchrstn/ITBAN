@@ -1,0 +1,51 @@
+Sport,Players,Equipment,Playing_Area,Scoring_Method,Prescription
+Chess,1,Chessboard,Indoor,Win by checkmate,Requires strong strategic thinking and patience.
+Tennis,2,"Racket, Tennis Ball",Outdoor,Points-based,"Requires speed, agility, and endurance."
+Table Tennis,2,"Table, Small Ball",Indoor,Points-based,Improves hand-eye coordination and reflexes.
+Basketball,5,Basketball,Indoor/Outdoor,Points-based,"Needs teamwork, endurance, and jumping ability."
+Football,11,Football,Outdoor,Goals-based,"Requires stamina, teamwork, and footwork skills."
+Volleyball,6,Volleyball,Indoor/Outdoor,Points-based,Great for teamwork and upper body strength.
+Boxing,1,Boxing Gloves,Indoor (Ring),Knockout or Points,"Demands strength, agility, and quick reflexes."
+Badminton,2,"Badminton Rackets, Shuttlecock",Indoor,Points-based,Good for agility and hand-eye coordination.
+Swimming,1,Pool,Water,Time-based,Requires strong breathing control and stamina.
+Cricket,11,"Bat, Ball, Wickets",Outdoor,Runs-based,"Demands precision, teamwork, and patience."
+Archery,1,"Bow, Arrows, Target",Outdoor,Points-based,"Requires focus, steady hands, and patience."
+Cycling,1,Bicycle,Outdoor,Time-based,"Needs endurance, balance, and leg strength."
+Golf,1,"Golf Club, Golf Ball",Outdoor,Points-based (lowest score wins),"Demands precision, patience, and technique."
+Rugby,15,Rugby Ball,Outdoor,Points-based,"Requires high stamina, strength, and teamwork."
+Baseball,9,"Bat, Ball, Gloves",Outdoor,Runs-based,"Needs batting accuracy, speed, and teamwork."
+Karate,2,No Equipment,Indoor (Dojo),Points-based or Knockout,"Improves discipline, agility, and strength."
+Wrestling,2,No Equipment,Indoor (Ring),Points-based or Pin,"Demands strength, balance, and endurance."
+Darts,1,"Dartboard, Darts",Indoor,Points-based,Requires hand-eye coordination and focus.
+Table Football,2,Foosball Table,Indoor,Points-based,Good for reflexes and strategic planning.
+Surfing,1,Surfboard,Water,Style-based,"Requires balance, core strength, and wave reading."
+Ice Hockey,6,"Hockey Stick, Puck",Indoor (Ice Rink),Points-based,"Demands speed, precision, and endurance."
+Skiing,1,"Skis, Poles",Snow,Time-based,"Needs balance, leg strength, and control."
+Snowboarding,1,Snowboard,Snow,Style or Time-based,"Requires balance, agility, and control."
+Horse Racing,1,"Horse, Riding Gear",Outdoor,Time-based,"Needs balance, riding skill, and strategy."
+Rowing,4,"Rowboat, Oars",Water,Time-based,"Requires endurance, teamwork, and arm strength."
+Weightlifting,1,"Barbell, Weights",Indoor,Max Weight Lifted,"Requires strength, technique, and control."
+Fencing,2,"Foil, Mask",Indoor,Points-based,"Requires agility, reflexes, and strategy."
+Handball,7,Handball,Indoor,Points-based,"Needs agility, speed, and teamwork."
+Track Running,1,Running Shoes,Outdoor,Time-based,"Demands endurance, speed, and stamina."
+Track Running,1,Running Shoes,Outdoor,Time-based,"Demands endurance, speed, and stamina."
+Archery,1,"Bow, Arrows, Target",Outdoor,Points-based,"Requires focus, steady hands, and patience."
+Ice Hockey,6,"Hockey Stick, Puck",Indoor (Ice Rink),Points-based,"Demands speed, precision, and endurance."
+Wrestling,2,No Equipment,Indoor (Ring),Points-based or Pin,"Demands strength, balance, and endurance."
+Cycling,1,Bicycle,Outdoor,Time-based,"Needs endurance, balance, and leg strength."
+Snowboarding,1,Snowboard,Snow,Style or Time-based,"Requires balance, agility, and control."
+Table Tennis,2,"Table, Small Ball",Indoor,Points-based,Improves hand-eye coordination and reflexes.
+Badminton,2,"Badminton Rackets, Shuttlecock",Indoor,Points-based,Good for agility and hand-eye coordination.
+Rowing,4,"Rowboat, Oars",Water,Time-based,"Requires endurance, teamwork, and arm strength."
+Fencing,2,"Foil, Mask",Indoor,Points-based,"Requires agility, reflexes, and strategy."
+Ice Hockey,6,"Hockey Stick, Puck",Indoor (Ice Rink),Points-based,"Demands speed, precision, and endurance."
+Snowboarding,1,Snowboard,Snow,Style or Time-based,"Requires balance, agility, and control."
+Football,11,Football,Outdoor,Goals-based,"Requires stamina, teamwork, and footwork skills."
+Table Football,2,Foosball Table,Indoor,Points-based,Good for reflexes and strategic planning.
+Ice Hockey,6,"Hockey Stick, Puck",Indoor (Ice Rink),Points-based,"Demands speed, precision, and endurance."
+Track Running,1,Running Shoes,Outdoor,Time-based,"Demands endurance, speed, and stamina."
+Fencing,2,"Foil, Mask",Indoor,Points-based,"Requires agility, reflexes, and strategy."
+Weightlifting,1,"Barbell, Weights",Indoor,Max Weight Lifted,"Requires strength, technique, and control."
+Track Running,1,Running Shoes,Outdoor,Time-based,"Demands endurance, speed, and stamina."
+Fencing,2,"Foil, Mask",Indoor,Points-based,"Requires agility, reflexes, and strategy."
+Ice Hockey,6,"Hockey Stick, Puck",Indoor (Ice Rink),Points-based,"Demands speed, precision, and endurance."
