@@ -45,8 +45,6 @@ function App() {
         setResult('');
         setError('');
         setExplanation('');
-        setConfidence(null);
-        setAlternatives([]);
         
         try {
             await new Promise(resolve => setTimeout(resolve, 800));
@@ -76,12 +74,11 @@ function App() {
             }
 
             // Handle both endpoints' response formats
-            if (activeTab === 'naiveBayes') {
-                setResult(data.recommended_sport);
-            } else {
-                setResult(data.recommended_sport);
-                setExplanation(data.prescription); // Set the prescription to explanation
-            }
+            // Handle both endpoints' response formats
+        setResult(data.recommended_sport);
+        setConfidence(data.confidence || null);
+        setExplanation(data.prescription || ""); // Handle prescription for both endpoints
+
             
             
         } catch (err) {

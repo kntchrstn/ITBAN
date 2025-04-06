@@ -62,6 +62,7 @@ def normalize_input(category, value):
             return "Style-based"
     return value
 
+#Naive bayes
 @app.route('/api/sports', methods=['POST'])
 def classify():
     data = request.json
@@ -123,14 +124,11 @@ def classify():
         # Predict sport
         prediction = model.predict(input_encoded)[0]
         
-        # Get prediction probability
-        probabilities = model.predict_proba(input_encoded)[0]
-        max_prob_index = np.argmax(probabilities)
-        confidence = probabilities[max_prob_index]
+      
         
         return jsonify({
             "recommended_sport": prediction,
-            "confidence": float(confidence)
+            "prescription": existing_match.iloc[0]['Prescription'] if not existing_match.empty else "No prescription available"
         })
 
     except Exception as e:
