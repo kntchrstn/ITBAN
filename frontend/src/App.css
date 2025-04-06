@@ -356,158 +356,128 @@ main::before {
 
 /* Enhanced Result Container Styles */
 .result-container {
-  background-color: rgba(30, 32, 40, 0.6);
+  background-color: rgba(30, 32, 40, 0.8); /* Slightly darker for better contrast */
   border-radius: var(--radius-lg);
   padding: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   border: 1px solid var(--border-color);
-  animation: fadeIn 0.6s ease-in-out;
+  animation: fadeIn 0.8s ease;
   position: relative;
   width: 100%;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
   text-align: center;
-}
-
-.result {
-  font-size: 2.4rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 1rem 0;
-  line-height: 1.2;
-  letter-spacing: -1px;
-  text-shadow: var(--glow-cyan);
-  display: inline-block;
+  overflow: hidden;
 }
 
 .result-container::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
-  box-shadow: var(--glow-cyan);
-}
-
-.result-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at top right, rgba(0, 216, 255, 0.1) 0%, transparent 60%),
-    radial-gradient(circle at bottom left, rgba(0, 255, 145, 0.1) 0%, transparent 60%);
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 216, 255, 0.2) 0%, transparent 70%);
+  opacity: 0.5;
   pointer-events: none;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 .result-container h3 {
-  color: var(--text-color);
-  font-size: 1.6rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Alternative Recommendations Styles */
-.alternatives {
-  margin-top: 2.5rem;
-  padding: 1.5rem;
-  background-color: rgba(30, 32, 40, 0.4);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-color);
+.result {
+  font-size: 2.6rem; /* Slightly larger for emphasis */
+  font-weight: 700;
+  color: var(--text-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhanced text shadow */
+  margin: 10px 0;
+  display: inline-block;
+  margin-top: -20px;
+  animation: pulse 1.5s infinite; /* Subtle pulsing effect */
 }
 
-.alternatives-tag {
-  color: var(--text-color);
-  font-size: 1.3rem;
+/* Prescription Section Styles */
+.prescription {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(30, 32, 40, 0.9); /* Slightly darker for better readability */
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary-color);
+  text-align: left;
+  color: var(--text-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.prescription h4 {
+  font-size: 1.4rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  position: relative;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.alternatives-tag::after {
-  content: '';
-  position: absolute;
-  bottom: -0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-}
-
-.alternatives-list {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.alternative-item {
-  background-color: rgba(30, 32, 40, 0.6);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.alternative-item:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-
-.alternative-name {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.alternative-name .sport-name {
+.prescription-text {
+  font-size: 20px;
+  line-height: 1.6;
   color: var(--text-color);
+  margin-top: 10px;
+}
+
+.accuracy {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(30, 32, 40, 0.9);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--secondary-color);
+  text-align: center;
+  color: var(--text-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.accuracy h4 {
   font-size: 1.2rem;
   font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 5px;
 }
 
-.alternative-confidence {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  padding: 0.4rem 0.8rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--bg-dark);
+.accuracy p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-color);
 }
 
-.alternative-description {
-  color: var(--text-light);
-  font-size: 0.95rem;
-  line-height: 1.6;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 footer {
