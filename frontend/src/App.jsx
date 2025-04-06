@@ -79,7 +79,8 @@ function App() {
             if (activeTab === 'naiveBayes') {
                 setResult(data.recommended_sport);
             } else {
-                setResult(data.recommendation);
+                setResult(data.recommended_sport);
+                setExplanation(data.prescription); // Set the prescription to explanation
             }
             
             
