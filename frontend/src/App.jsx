@@ -69,6 +69,7 @@ function App() {
             });
             
             const data = await response.json();
+            console.log(data); // Log the response to inspect its structure
             
             if (!response.ok) {
                 throw new Error(data.error || 'Failed to get recommendation');
@@ -81,9 +82,6 @@ function App() {
                 setResult(data.recommendation);
             }
             
-            setExplanation(data.explanation);
-            setConfidence(data.confidence);
-            setAlternatives(data.alternatives || []);
             
         } catch (err) {
             console.error('Error:', err);
@@ -212,52 +210,15 @@ function App() {
                     
                     {result && (
                         <div className="result-container">
-                            <h3>Primary Recommendation</h3>
+                            <h3>Predicted Sport</h3>
                             <div className="result">{result}</div>
-                            
-                            {confidence !== null && (
-                                <div className="confidence-bar">
-                                    <div className="confidence-label">
-                                        Match Confidence: {Math.round(confidence * 100)}%
-                                    </div>
-                                    <div className="confidence-track">
-                                        <div 
-                                            className="confidence-fill" 
-                                            style={{width: `${confidence * 100}%`}}
-                                        />
-                                    </div>
-                                </div>
-                            )}
 
                             {explanation && (
-                                <div className="explanation">
-                                    <div className="explanation-tag">Why this sport?</div>
-                                    <div className="explanation-text">{explanation}</div>
-                                </div>
-                            )}
-                            
-                            {alternatives && alternatives.length > 0 && (
-                                <div className="alternatives">
-                                    <div className="alternatives-tag">
-                                        Alternative Recommendations
-                                    </div>
-                                    <div className="alternatives-list">
-                                        {alternatives.map((alt, index) => (
-                                            <div key={index} className="alternative-item">
-                                                <div className="alternative-name">
-                                                    {alt.sport}
-                                                    <div className="alternative-confidence">
-                                                        {Math.round(alt.confidence * 100)}% Match
-                                                    </div>
-                                                </div>
-                                                <div className="alternative-description">
-                                                    {alt.explanation}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
+            <div className="prescription">
+                <h4>Prescription for the Sport</h4>
+                <div className="prescription-text">{explanation}</div>
+            </div>
+        )}
                         </div>
                     )}
                 </div>
