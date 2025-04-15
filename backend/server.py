@@ -2,139 +2,17 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
-from sklearn.naive_bayes import MultinomialNB  # Changed to actually use Naive Bayes
-import numpy as np
-import os
+from sklearn.naive_bayes import MultinomialNB
+
 import csv
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:5173"])  # Update with your frontend's URL
 
-
-# Load dataset with error handling
-csv_path = "sports.csv"
-try:
-    if not os.path.exists(csv_path):
-        raise FileNotFoundError(f"Dataset file not found: {csv_path}")
-    df = pd.read_csv(csv_path)
-    print(f"Loaded dataset with {len(df)} records")
-except Exception as e:
-    print(f"Error loading dataset: {str(e)}")
-    df = pd.DataFrame(columns=['Players', 'Playing_Area', 'Scoring_Method', 'Equipment', 'Sport'])
-
-# Preprocess categorical data with error handling
-try:
-    encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
-    categorical_columns = ['Players', 'Playing_Area', 'Scoring_Method', 'Equipment']
-    
-    # Verify all columns exist
-    missing_columns = [col for col in categorical_columns if col not in df.columns]
-    if missing_columns:
-        raise ValueError(f"Missing columns in dataset: {missing_columns}")
-    
-    X = encoder.fit_transform(df[categorical_columns].astype(str))
-    y = df['Sport']
-    
-    # Train a Naive Bayes model (to match the frontend naming)
-    model = MultinomialNB()
-    model.fit(X, y)
-    print("Model trained successfully")
-except Exception as e:
-    print(f"Error training model: {str(e)}")
-    # Create dummy encoder and model for graceful failure
-    encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
-    model = MultinomialNB()
-
-def normalize_input(category, value):
-    if value is None:
-        return ""
-    
-    value_lower = value.lower().strip()
-    if category == 'scoring_method':
-        if "point" in value_lower:
-            return "Points-based"
-        elif "goal" in value_lower:
-            return "Goals-based"
-        elif "time" in value_lower:
-            return "Time-based"
-        elif "style" in value_lower:
-            return "Style-based"
-    return value
-
-#Naive bayes
-@app.route('/api/sports', methods=['POST'])
-def classify():
-    data = request.json
-    try:
-        # Validate required fields
-        if not data:
-            return jsonify({"error": "No data provided"}), 400
-        
-        required_fields = ["players", "playing_area", "scoring_method", "equipment"]
-        missing_fields = [field for field in required_fields if field not in data or not data.get(field)]
-        
-        if missing_fields:
-            return jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}), 400
-        
-        # Extract input fields
-        try:
-            players = str(int(data.get("players")))  # Convert to int then string to validate number
-        except ValueError:
-            return jsonify({"error": "Players must be a valid number"}), 400
-            
-        playing_area = data.get("playing_area")
-        scoring_method = normalize_input('scoring_method', data.get("scoring_method"))
-        equipment = data.get("equipment")
-        
-        # Prepare input data
-        input_data = [[players, playing_area, scoring_method, equipment]]
-        
-        try:
-            input_encoded = encoder.transform(input_data)
-        except Exception as e:
-            return jsonify({"error": f"Error encoding input: {str(e)}"}), 500
-        
-        # Check if input exists in dataset
-        existing_match = df[
-            (df['Players'].astype(str) == players) &
-            (df['Playing_Area'] == playing_area) &
-            (df['Scoring_Method'] == scoring_method) &
-            (df['Equipment'] == equipment)
-        ]
-        
-        if existing_match.empty:
-            # Check if we can find a close match
-            close_match = df[
-                (df['Players'].astype(str) == players) &
-                ((df['Playing_Area'] == playing_area) | 
-                 (df['Scoring_Method'] == scoring_method) |
-                 (df['Equipment'] == equipment))
-            ]
-            
-            if not close_match.empty:
-                prediction = close_match.iloc[0]['Sport']
-                return jsonify({
-                    "recommended_sport": prediction,
-                    "note": "Found approximate match. Exact match not in dataset."
-                })
-            else:
-                return jsonify({"error": "No matching sport found. Please check input values."}), 400
-        
-        # Predict sport
-        prediction = model.predict(input_encoded)[0]
-        
-      
-        
-        return jsonify({
-            "recommended_sport": prediction,
-            "prescription": existing_match.iloc[0]['Prescription'] if not existing_match.empty else "No prescription available"
-        })
-
-    except Exception as e:
-        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
-
-
+# Global variables
+model = None
+model_accuracy = None
 
 # Load the dataset into a list of dictionaries
 def load_sports_data(file_path):
@@ -144,6 +22,31 @@ def load_sports_data(file_path):
         for row in reader:
             sports_data.append(row)
     return sports_data
+
+
+    global model_accuracy
+    sports_data = pd.read_csv(file_path)
+
+    # Preprocess data
+    X = sports_data[['Players', 'Equipment', 'Playing_Area', 'Scoring_Method']]
+    y = sports_data['Sport']
+
+    # One-hot encode categorical features
+    encoder = OneHotEncoder()
+    X_encoded = encoder.fit_transform(X)
+
+    # Split data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, test_size=0.2, random_state=42)
+
+    # Train the Naive Bayes model
+    model = MultinomialNB()
+    model.fit(X_train, y_train)
+
+    # Calculate accuracy
+    y_pred = model.predict(X_test)
+    model_accuracy = accuracy_score(y_test, y_pred)
+
+    return model
 
 # Rule-based classifier function
 def predict_sport(sports_data, players, equipment, playing_area, scoring_method):
@@ -201,6 +104,7 @@ def prescriptive():
 
     except Exception as e:
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
 
 @app.route('/api/health', methods=['GET'])
 def health_check():

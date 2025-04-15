@@ -10,13 +10,11 @@ function App() {
     });
     const [result, setResult] = useState('');
     const [explanation, setExplanation] = useState('');
-    const [confidence, setConfidence] = useState(null);
-    const [alternatives, setAlternatives] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [typingEffect, setTypingEffect] = useState('');
     const [typingIndex, setTypingIndex] = useState(0);
-    const [activeTab, setActiveTab] = useState('naiveBayes');
+    const [confidence, setConfidence] = useState(null);
 
     const welcomeText = "Enter your preferences to get a personalized sport recommendation.";
 
@@ -45,13 +43,10 @@ function App() {
         setResult('');
         setError('');
         setExplanation('');
-        
         try {
             await new Promise(resolve => setTimeout(resolve, 800));
             
-            const endpoint = activeTab === 'naiveBayes' 
-                ? 'http://localhost:5000/api/sports' 
-                : 'http://localhost:5000/api/prescriptive';
+            const endpoint = 'http://localhost:5000/api/prescriptive';
             
             const response = await fetch(endpoint, {
                 method: 'POST',
@@ -72,15 +67,11 @@ function App() {
             if (!response.ok) {
                 throw new Error(data.error || 'Failed to get recommendation');
             }
-
-            // Handle both endpoints' response formats
-            // Handle both endpoints' response formats
-        setResult(data.recommended_sport);
-        setConfidence(data.confidence || null);
-        setExplanation(data.prescription || ""); // Handle prescription for both endpoints
-
-            
-            
+    
+            setResult(data.recommended_sport);
+            setConfidence(data.confidence || null);
+            setExplanation(data.prescription || ""); // Handle prescription for the endpoint
+    
         } catch (err) {
             console.error('Error:', err);
             setError(err.message);
@@ -88,47 +79,17 @@ function App() {
             setLoading(false);
         }
     };
-
-    const handleTabChange = (tab) => {
-        setActiveTab(tab);
-        setFormData({
-            players: '',
-            equipment: '',
-            playingArea: '',
-            scoringMethod: ''
-        });
-        setResult('');
-        setError('');
-        setExplanation('');
-        setConfidence(null);
-        setAlternatives([]);
-        
-        setTypingEffect('');
-        setTypingIndex(0);
-    };
-
+    
+    
     return (
         <div className="container">
-            <nav className="navbar">
-                <ul>
-                    <li className={activeTab === 'naiveBayes' ? 'active' : ''} 
-                        onClick={() => handleTabChange('naiveBayes')}>
-                        ITBAN 3
-                    </li>
-                    <li className={activeTab === 'ifThen' ? 'active' : ''} 
-                        onClick={() => handleTabChange('ifThen')}>
-                        ITBAN 4
-                    </li>
-                </ul>
-            </nav>
-            
             <header>
-                <h1>Sports <span className="highlight">Recommendation</span></h1>
+                <h1>Rule-Based<span className="highlight"> Classifier</span></h1>
             </header>
             
             <main>
                 <div className="content">
-                    <h2>{activeTab === 'naiveBayes' ? 'Find Your Sport' : 'Sport Recommendation with Rules'}</h2>
+                    <h2>Sport Recommendation</h2>
                     <p className="typing-effect">{typingEffect}<span className="cursor">|</span></p>
                     
                     <form onSubmit={handleSubmit} className="form">
@@ -145,7 +106,7 @@ function App() {
                                 className="form-input"
                             />
                         </div>
-
+    
                         <div className="form-group">
                             <label htmlFor="equipment">Equipment</label>
                             <input
@@ -210,20 +171,20 @@ function App() {
                         <div className="result-container">
                             <h3>Predicted Sport</h3>
                             <div className="result">{result}</div>
-
+    
                             {explanation && (
-            <div className="prescription">
-                <h4>Prescription for the Sport</h4>
-                <div className="prescription-text">{explanation}</div>
-            </div>
-        )}
+                                <div className="prescription">
+                                    <h4>Prescription for the Sport:</h4>
+                                    <div className="prescription-text">{explanation}</div>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
             </main>
             
             <footer>
-                <p>{activeTab === 'naiveBayes' ? 'ITBAN 3 Naive Bayes' : 'ITBAN 4 Prescriptive Analytics'}</p>
+                <p>Rule-Based Classifier</p>
             </footer>
         </div>
     );
